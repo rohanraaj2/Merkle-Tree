@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.10) (preloaded format=pdflatex 2023.1.11)  4 APR 2023 01:01
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.10) (preloaded format=pdflatex 2023.1.11)  4 APR 2023 01:25
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -275,28 +275,29 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 <Hash_Tree.png, id=48, 311.1625pt x 197.73875pt>
 File: Hash_Tree.png Graphic file (type png)
 <use Hash_Tree.png>
-Package pdftex.def Info: Hash_Tree.png  used on input line 40.
-(pdftex.def)             Requested size: 289.08376pt x 216.8133pt.
+Package pdftex.def Info: Hash_Tree.png  used on input line 43.
+(pdftex.def)             Requested size: 311.16174pt x 197.73827pt.
+ [2 <./Hash_Tree.png>]
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <7> on input line 48.
+(Font)              <7> on input line 49.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <5> on input line 48.
- [2 <./Hash_Tree.png>] [3] [4] (Project Specification.aux)
+(Font)              <5> on input line 49.
+ [3] [4] (Project Specification.aux)
 Package rerunfilecheck Info: File `"Project Specification".out' has not changed.
 (rerunfilecheck)             Checksum: 5CE0BE02AE3459C3AD1D67D8348E6535;745.
  ) 
 Here is how much of TeX's memory you used:
- 8820 strings out of 475385
- 142254 string characters out of 2776907
- 490168 words of memory out of 3000000
- 30081 multiletter control sequences out of 15000+600000
+ 8817 strings out of 475385
+ 142223 string characters out of 2776907
+ 490139 words of memory out of 3000000
+ 30080 multiletter control sequences out of 15000+600000
  473542 words of font info for 42 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 72i,8n,77p,568b,525s stack positions out of 10000i,1000n,20000p,200000b,80000s
+ 72i,8n,77p,568b,523s stack positions out of 10000i,1000n,20000p,200000b,80000s
  <C:\Users\rohan\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm1000.pk><C:/Users/rohan/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Users/rohan/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Users/rohan/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/rohan/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/rohan/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/rohan/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/Users/rohan/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
-Output written on "Project Specification.pdf" (4 pages, 120651 bytes).
+Output written on "Project Specification.pdf" (4 pages, 119803 bytes).
 PDF statistics:
- 116 PDF objects out of 1000 (max. 8388607)
- 28 named destinations out of 1000 (max. 500000)
+ 114 PDF objects out of 1000 (max. 8388607)
+ 26 named destinations out of 1000 (max. 500000)
  62 words of extra memory for PDF output out of 10000 (max. 10000000)
 
