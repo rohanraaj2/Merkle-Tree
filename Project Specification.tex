@@ -25,9 +25,9 @@
 We will be using Merkle tree which is a tree-like hash-based data structure where each leaf node represents a hash value of a piece of data. Every other node represents the hash value of the concatenation of its child nodes in a recursive hashing process, with the root node representing as single hash value that is considered as the summary of the dataset. The Merkle Tree is commonly used to verify the integrity and authenticity of large datasets. 
 \section{Application}
 \begin{enumerate}
+    \item \textbf{File systems:} Merkle trees can be used in file systems to efficiently verify the integrity of large files. Instead of having to hash the entire file, a Merkle tree can be constructed, allowing for efficient verification of the integrity of the file.
     \item \textbf{Blockchain technology:} Merkle trees are widely used in blockchain technology to ensure the authenticity and integrity of transactions and blocks in the blockchain. Each block in the blockchain contains a Merkle tree of the transactions in that block, and the root hash of this tree is included in the block header.
     \item \textbf{Version control systems:} Merkle trees are used in version control systems, such as Git, to efficiently track changes to large code repositories. In Git, each commit contains a Merkle tree of the changes made to the codebase, allowing for efficient verification of the integrity of the codebase.
-    \item \textbf{File systems:} Merkle trees can be used in file systems to efficiently verify the integrity of large files. Instead of having to hash the entire file, a Merkle tree can be constructed, allowing for efficient verification of the integrity of the file.
 \end{enumerate}
 \section{Functionality}
 \begin{enumerate}
