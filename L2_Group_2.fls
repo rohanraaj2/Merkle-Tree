@@ -1,7 +1,7 @@
 PWD c:\Users\rohan\OneDrive\Documents\GitHub\Data-Structures-II-Project
 INPUT C:\Users\rohan\AppData\Local\MiKTeX\miktex\data\le\pdftex\pdflatex.fmt
-INPUT c:\Users\rohan\OneDrive\Documents\GitHub\Data-Structures-II-Project\Project Specification.tex
-OUTPUT Project Specification.log
+INPUT c:\Users\rohan\OneDrive\Documents\GitHub\Data-Structures-II-Project\L2_Group_2.tex
+OUTPUT L2_Group_2.log
 INPUT C:\Users\rohan\AppData\Local\Programs\MiKTeX\tex\latex\base\article.cls
 INPUT C:\Users\rohan\AppData\Local\Programs\MiKTeX\tex\latex\base\article.cls
 INPUT C:\Users\rohan\AppData\Local\Programs\MiKTeX\tex\latex\base\article.cls
@@ -440,22 +440,22 @@ INPUT C:\Users\rohan\AppData\Local\Programs\MiKTeX\tex\latex\l3backend\l3backend
 INPUT C:\Users\rohan\AppData\Local\Programs\MiKTeX\tex\latex\l3backend\l3backend-pdftex.def
 INPUT C:\Users\rohan\AppData\Local\Programs\MiKTeX\tex\latex\l3backend\l3backend-pdftex.def
 INPUT C:\Users\rohan\AppData\Local\Programs\MiKTeX\tex\latex\l3backend\l3backend-pdftex.def
-INPUT .\Project Specification.aux
-INPUT Project Specification.aux
-INPUT Project Specification.aux
-OUTPUT Project Specification.aux
-INPUT .\Project Specification.out
-INPUT Project Specification.out
-INPUT .\Project Specification.out
-INPUT Project Specification.out
-INPUT .\Project Specification.out
-INPUT Project Specification.out
-INPUT .\Project Specification.out
-INPUT Project Specification.out
-OUTPUT Project Specification.pdf
-INPUT .\Project Specification.out
-INPUT .\Project Specification.out
-OUTPUT Project Specification.out
+INPUT .\L2_Group_2.aux
+INPUT L2_Group_2.aux
+INPUT L2_Group_2.aux
+OUTPUT L2_Group_2.aux
+INPUT .\L2_Group_2.out
+INPUT L2_Group_2.out
+INPUT .\L2_Group_2.out
+INPUT L2_Group_2.out
+INPUT .\L2_Group_2.out
+INPUT L2_Group_2.out
+INPUT .\L2_Group_2.out
+INPUT L2_Group_2.out
+OUTPUT L2_Group_2.pdf
+INPUT .\L2_Group_2.out
+INPUT .\L2_Group_2.out
+OUTPUT L2_Group_2.out
 INPUT C:\Users\rohan\AppData\Local\Programs\MiKTeX\tex\context\base\mkii\supp-pdf.mkii
 INPUT C:\Users\rohan\AppData\Local\Programs\MiKTeX\tex\context\base\mkii\supp-pdf.mkii
 INPUT C:\Users\rohan\AppData\Local\Programs\MiKTeX\tex\context\base\mkii\supp-pdf.mkii
@@ -498,9 +498,9 @@ INPUT .\Hash_Tree.png
 INPUT .\Hash_Tree.png
 INPUT C:\Users\rohan\AppData\Local\Programs\MiKTeX\fonts\tfm\jknappen\ec\tcrm1000.tfm
 INPUT C:\Users\rohan\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmti10.tfm
-INPUT Project Specification.aux
-INPUT .\Project Specification.out
-INPUT .\Project Specification.out
+INPUT L2_Group_2.aux
+INPUT .\L2_Group_2.out
+INPUT .\L2_Group_2.out
 INPUT C:\Users\rohan\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\tcrm1000.pk
 INPUT C:\Users\rohan\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\tcrm1000.pk
 INPUT C:\Users\rohan\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\cm\cmbx10.pfb
