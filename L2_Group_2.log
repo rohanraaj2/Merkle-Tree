@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.10) (preloaded format=pdflatex 2023.1.11)  4 APR 2023 01:53
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.10) (preloaded format=pdflatex 2023.1.11)  4 APR 2023 02:03
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -183,7 +183,11 @@ Package: cite 2015/02/27  v 5.5
 File: l3backend-pdftex.def 2022-09-28 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count274
 \l__pdf_internal_box=\box53
-) (L2_Group_2.aux)
+) (L2_Group_2.aux
+
+LaTeX Warning: Label `chatgpt1' multiply defined.
+
+)
 \openout1 = `L2_Group_2.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 14.
@@ -282,20 +286,28 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <7> on input line 49.
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <5> on input line 49.
- [3] [4] (L2_Group_2.aux)
+ [3] [4
+pdfTeX warning (ext4): destination with the same identifier (name{cite.chatgpt1}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.97 \end{document}
+                   ] (L2_Group_2.aux)
+
+LaTeX Warning: There were multiply-defined labels.
+
 Package rerunfilecheck Info: File `L2_Group_2.out' has not changed.
 (rerunfilecheck)             Checksum: 5CE0BE02AE3459C3AD1D67D8348E6535;745.
  ) 
 Here is how much of TeX's memory you used:
  8826 strings out of 475385
- 142060 string characters out of 2776907
- 490186 words of memory out of 3000000
+ 142062 string characters out of 2776907
+ 490226 words of memory out of 3000000
  30083 multiletter control sequences out of 15000+600000
  473888 words of font info for 43 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  72i,8n,77p,555b,523s stack positions out of 10000i,1000n,20000p,200000b,80000s
  <C:\Users\rohan\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm1000.pk><C:/Users/rohan/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Users/rohan/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Users/rohan/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/rohan/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/rohan/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/rohan/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/Users/rohan/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/rohan/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmti10.pfb>
-Output written on L2_Group_2.pdf (4 pages, 131973 bytes).
+Output written on L2_Group_2.pdf (4 pages, 132009 bytes).
 PDF statistics:
  125 PDF objects out of 1000 (max. 8388607)
  31 named destinations out of 1000 (max. 500000)
