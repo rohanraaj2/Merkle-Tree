@@ -12,19 +12,24 @@ class MerkleTree:
         self.root = None
 
     def insert(self,value):
+        # adds a new node to the tree
         pass
 
     def delete(self,value):
-        pass
-
-    def search(self,value):
+        # deletes a node from the tree
+        # returns the updated tree
         pass
 
     def verify(self, proof, value, root_hash):
+        # verifies the merkle proof for the given value
+        # returns True if correct, False if incorrect
         pass
 
-    def hash(self):
+    def rehash(self):
+        # updates the hash values of each node 
         pass
 
     def get_proof(self,value):
+        # proves that the value exists in the tree
+        # returns the proof for the given value
         pass
