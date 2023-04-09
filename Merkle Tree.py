@@ -33,3 +33,7 @@ class MerkleTree:
         # proves that the value exists in the tree
         # returns the proof for the given value
         pass
+
+    def print_tree(self):
+        # prints the contents of the tree 
+        pass
