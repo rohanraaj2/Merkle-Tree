@@ -15,7 +15,7 @@ class MerkleTree:
     def insert(self,value):
         # adds a new node to the tree
         node = Node(value)
-        print(node.value)
+        # print(node.value)
         if not self.root:
             self.root = node
         else:
@@ -36,7 +36,7 @@ class MerkleTree:
                     else:
                         current_node = current_node.right
             self.rehash(node)
-            print("rehashed")
+            self.print_tree()
         pass
 
     def delete(self,value):
@@ -82,7 +82,7 @@ class MerkleTree:
                 right_hash = ""
 
             node.hash = hashlib.sha256((left_hash + right_hash).encode('utf-8')).hexdigest()
-            print("node hash: ",node.hash)
+            # print("node hash: ",node.hash)
             node = node.parent
         pass
 
@@ -201,3 +201,8 @@ tree.insert("banana")
 tree.insert("cherry")
 tree.insert("date")
 tree.insert("elderberry")    
+
+# delete some values from tree
+tree.delete("banana")
+tree.delete("date")
+tree.insert("date")
