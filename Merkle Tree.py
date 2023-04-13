@@ -1,43 +1,37 @@
 import hashlib
 
 class Node:
-    def __init__(self, value):
+    def __init__(self, left, right, hashval, value):
         self.value = value
-        self.hash = hashlib.sha256(value.encode('utf-8')).hexdigest()
-        self.left = None
-        self.right = None
-        self.parent = None
+        self.left = left
+        self.right = right
+        self.hashval = hashval
+
+    def hash(self,value):
+        return hashlib.sha256(value.encode('utf-8')).hexdigest()    
 
 class MerkleTree:
-    def __init__(self):
-        self.root = None
+    def __init__(self, hashes: list):
+        self.buildTree(hashes)
 
-    def insert(self,value):
-        # adds a new node to the tree
-        node = Node(value)
-        # print(node.value)
-        if not self.root:
-            self.root = node
-        else:
-            current_node = self.root
-            while True:
-                if value < current_node.value:
-                    if current_node.left is None:
-                        current_node.left = node
-                        node.parent = current_node
-                        break
-                    else:
-                        current_node = current_node.left
-                else:
-                    if current_node.right is None:
-                        current_node.right = node
-                        node.parent = current_node
-                        break
-                    else:
-                        current_node = current_node.right
-            self.rehash(node)
-            self.print_tree()
-        pass
+    def buildTree(self, hashes: list[str]) -> None:
+        # builds a tree from the dataset 
+
+        nodes = []                                          # creates the initial list of nodes that will be stored in the merkle tree
+        for val in hashes:
+            nodes.append(Node(None, None, Node.hash(val), val))
+
+        if len(nodes) % 2 != 0:                             # if no of nodes are odd, duplicate the last node to make it even
+            nodes.append(nodes[-1])
+
+        self.root = self._buildTree(nodes)                  # resulting tree is stored in the root of the MerkleTree object
+        self.print_tree()
+
+    def insert(self, value, hashes:list[str]):
+        # adds values to the list
+
+        node = Node(value)                                  # create a new node 
+        hashes.append(node.value)                           # add the new node to the hash list
 
     def delete(self,value):
         # deletes a node from the tree
@@ -107,6 +101,29 @@ class MerkleTree:
         pass
 
     # helper functions
+    def _buildTree(self, nodes: list[Node]) -> Node:
+        
+        if len(nodes) % 2 != 0:                             # if no of nodes are odd, duplicate the last node to make it even
+            nodes.append(nodes[-1])
+
+        half: int = len(nodes) // 2                         # to be used to split the tree
+ 
+        # if only 2 elements exist, the new node is the hash of the hashes of the two
+        if len(nodes) == 2:                                 
+            node = Node(nodes[0], nodes[1], Node.hash(nodes[0].hashval + nodes[1].hashval), nodes[0].value+"+"+nodes[1].value)
+            return node
+ 
+        # Recursively build the left and right subtrees
+        left = self._buildTree(nodes[:half])
+        right = self._buildTree(nodes[half:])
+
+        # Calculate the hash and value of the current node based on the hashes and values of its children
+        hashval = Node.hash(left.hashval + right.hashval)
+        value = f'{left.value}+{right.value}'
+
+        # Create and return a new node with the calculated hash and value
+        node = Node(left, right, hashval, value)
+        return node
 
     def _find_node(self, node, value):
         if not node:
@@ -193,16 +210,13 @@ class MerkleTree:
 
         return self._find_parent(node.right, child)
 
-tree = MerkleTree()
+hashes = ["hash1", "hash2", "hash3", "hash4", "hash5"]\
 
-# Insert some values into the tree
-tree.insert("apple")
-tree.insert("banana")
-tree.insert("cherry")
-tree.insert("date")
-tree.insert("elderberry")    
-
-# delete some values from tree
-tree.delete("banana")
-tree.delete("date")
-tree.insert("date")
+merkle_tree = MerkleTree(hashes)
+nodes = [
+Node(None, None, Node.hash("hash1"), "hash1"),
+Node(None, None, Node.hash("hash2"), "hash2"),
+Node(None, None, Node.hash("hash3"), "hash3"),
+Node(None, None, Node.hash("hash4"), "hash4"),
+Node(None, None, Node.hash("hash5"), "hash5")
+]
