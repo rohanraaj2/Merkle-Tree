@@ -40,36 +40,18 @@ class MerkleTree:
         hashes.append(node.value)                           # add the new node to the hash list
         self.buildTree(hashes)                              # re-build the tree after insertion
 
-    def delete(self,value):
-        # deletes a node from the tree
-        print("Tree before deletion:")
-        self.print_tree()
-        
-        if not self.root:
-            return None
+    def delete(self, value, hashes : list):
+        # deletes values from the list
 
-        # find the node to delete
-        node = self._find_node(self.root, value)
-
-        if not node:
-            return self.root
-
-        # delete the node
-        self._delete_node(node)
-
-        print(f"Node with value {value} was successfully deleted")
-        print("Tree after deletion:")
-        self.print_tree()
-
-        return self.root
-        pass
+        hashes.remove(value)                                # removes the value from the list
+        self.buildTree(hashes)                              # re-build the tree after deletion
 
     def verify(self, proof, value, root_hash):
         # verifies the merkle proof for the given value
         # returns True if correct, False if incorrect
         pass
 
-    def get_proof(self,value):
+    def get_proof(self, value, hashes : list):
         # proves that the value exists in the tree
         # returns the proof for the given value
         pass
@@ -92,7 +74,7 @@ class MerkleTree:
  
         # if only 2 elements exist, the new node is the hash of the hashes of the two
         if len(nodes) == 2:                                 
-            node = Node(nodes[0], nodes[1], self.hash(nodes[0].hashval + nodes[1].hashval), nodes[0].value+" "+nodes[1].value)
+            node = Node(nodes[0], nodes[1], self.hash(nodes[0].hashval + nodes[1].hashval), nodes[0].value+"+"+nodes[1].value)
             return node
  
         # Recursively build the left and right subtrees
@@ -107,90 +89,13 @@ class MerkleTree:
         node = Node(left, right, hashval, value)
         return node
 
-    def _find_node(self, node, value):
-        if not node:
-            return None
 
-        if node.value == value:
-            return node
+# Testing
+# hashes = ["hash1", "hash2"]
+# merkle_tree = MerkleTree(hashes)
 
-        left_node = self._find_node(node.left, value)
-        if left_node:
-            return left_node
+# hashes = ["hash1", "hash2", "hash3"]
+# merkle_tree = MerkleTree(hashes)
 
-        return self._find_node(node.right, value)
-    
-    def find(self, value):
-        # start at the root node
-        current_node = self.root
-        
-        # traverse the tree until the value is found or the end is reached
-        while current_node is not None:
-            if current_node.value == value:
-                return current_node
-            elif value < current_node.value:
-                current_node = current_node.left
-            else:
-                current_node = current_node.right
-        
-        # value was not found in the tree
-        return None
-
-    def _delete_node(self, node):
-        if not node.left and not node.right:
-            # node has no children
-            if node == self.root:
-                self.root = None
-            else:
-                parent = self._find_parent(self.root, node)
-                if parent.left == node:
-                    parent.left = None
-                else:
-                    parent.right = None
-
-        elif node.left and node.right:
-            # node has two children
-            successor = self._find_min_node(node.right)
-            node.value = successor.value
-            node.hash = successor.hash
-            self._delete_node(successor)
-
-        else:
-            # node has one child
-            if node.left:
-                child = node.left
-            else:
-                child = node.right
-
-            if node == self.root:
-                self.root = child
-            else:
-                parent = self._find_parent(self.root, node)
-                if parent.left == node:
-                    parent.left = child
-                else:
-                    parent.right = child
-
-        return
-
-    def _find_min_node(self, node):
-        while node.left:
-            node = node.left
-
-        return node
-
-    def _find_parent(self, node, child):
-        if not node:
-            return None
-
-        if node.left == child or node.right == child:
-            return node
-
-        left_parent = self._find_parent(node.left, child)
-        if left_parent:
-            return left_parent
-
-        return self._find_parent(node.right, child)
-
-hashes = ["hash1", "hash2", "hash3", "hash4"]
-merkle_tree = MerkleTree(hashes)
+# hashes = ["My", "name", "is", "Ayila"]
+# merkle_tree = MerkleTree(hashes)
