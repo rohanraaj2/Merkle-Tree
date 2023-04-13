@@ -2,19 +2,20 @@ import hashlib
 
 class Node:
     def __init__(self, left, right, hashval, value):
-        self.value = value
         self.left = left
         self.right = right
-        self.hashval = hashval
+        self.hashval = hashval                          # repesents hash value of node
+        self.value = value                              # represents content of node
 
-    def hash(self,value):
-        return hashlib.sha256(value.encode('utf-8')).hexdigest()    
+    def hash(self, val) -> str:
+        # in the initial stage, val represents the content. in later stages, val represents the hashval that is being rehashed 
+        return hashlib.sha256(val.encode('utf-8')).hexdigest()    # returns hash value of node
 
 class MerkleTree:
     def __init__(self, hashes: list):
         self.buildTree(hashes)
 
-    def buildTree(self, hashes: list[str]) -> None:
+    def buildTree(self, hashes: list) -> None:
         # builds a tree from the dataset 
 
         nodes = []                                          # creates the initial list of nodes that will be stored in the merkle tree
@@ -27,11 +28,12 @@ class MerkleTree:
         self.root = self._buildTree(nodes)                  # resulting tree is stored in the root of the MerkleTree object
         self.print_tree()
 
-    def insert(self, value, hashes:list[str]):
+    def insert(self, value, hashes : list):
         # adds values to the list
 
         node = Node(value)                                  # create a new node 
         hashes.append(node.value)                           # add the new node to the hash list
+        self.buildTree(hashes)                              # re-build the tree after insertion
 
     def delete(self,value):
         # deletes a node from the tree
@@ -85,20 +87,27 @@ class MerkleTree:
         # returns the proof for the given value
         pass
 
-    def print_tree(self, node= None, indent=0):
-        # prints the contents of the tree 
-        if node is None:
-            node = self.root
+    # def print_tree(self, node= None, indent=0):
+    #     # prints the contents of the tree 
+    #     if node is None:
+    #         node = self.root
 
-        print(" " * indent, end="")
-        #print(f"{node.value} ({node.hash})")
-        print(f"{node.value}")
+    #     print(" " * indent, end="")
+    #     #print(f"{node.value} ({node.hash})")
+    #     print(f"{node.value}")
 
-        if node.left:
-            self.print_tree(node.left, indent+2)
-        if node.right:
-            self.print_tree(node.right, indent+2)
-        pass
+    #     if node.left:
+    #         self.print_tree(node.left, indent+2)
+    #     if node.right:
+    #         self.print_tree(node.right, indent+2)
+    #     pass
+
+    def print_tree(self, node: Node) -> None: 
+        # prints the values of the tree
+        if node != None:
+            print(node.value)
+            self.print_tree(node.left)
+            self.print_tree(node.right)
 
     # helper functions
     def _buildTree(self, nodes: list[Node]) -> Node:
@@ -106,11 +115,11 @@ class MerkleTree:
         if len(nodes) % 2 != 0:                             # if no of nodes are odd, duplicate the last node to make it even
             nodes.append(nodes[-1])
 
-        half: int = len(nodes) // 2                         # to be used to split the tree
+        half: int = len(nodes) // 2                         # to be used to split the tree for obtaining left right branches
  
         # if only 2 elements exist, the new node is the hash of the hashes of the two
         if len(nodes) == 2:                                 
-            node = Node(nodes[0], nodes[1], Node.hash(nodes[0].hashval + nodes[1].hashval), nodes[0].value+"+"+nodes[1].value)
+            node = Node(nodes[0], nodes[1], Node.hash(nodes[0].hashval + nodes[1].hashval), nodes[0].value+" "+nodes[1].value)
             return node
  
         # Recursively build the left and right subtrees
