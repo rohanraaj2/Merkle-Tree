@@ -30,13 +30,14 @@ class MerkleTree:
             print("dup")
 
         self.root = self._buildTree(nodes)                  # resulting tree is stored in the root of the MerkleTree object
-        print("root: ", self.root.value)
+        # print("root: ", self.root.value)
+        print("root: ", self.root.hashval)
         self.print_tree(self.root)
 
     def insert(self, value, hashes : list):
         # adds values to the list
 
-        node = Node(value)                                  # create a new node 
+        node = Node(None,None,self.hash(value),value)                                  # create a new node 
         hashes.append(node.value)                           # add the new node to the hash list
         self.buildTree(hashes)                              # re-build the tree after insertion
 
@@ -96,6 +97,11 @@ class MerkleTree:
 
 # hashes = ["hash1", "hash2", "hash3"]
 # merkle_tree = MerkleTree(hashes)
+# merkle_tree.insert("hash4",hashes=["hash1", "hash2", "hash3"])
+# merkle_tree.delete("hash4",hashes=["hash1", "hash2", "hash3","hash4"])
 
-# hashes = ["My", "name", "is", "Ayila"]
-# merkle_tree = MerkleTree(hashes)
+hashes = ["My", "name", "is", "Ayila"]
+merkle_tree = MerkleTree(hashes)
+
+hashes = ["My", "name", "is", "Ayla"]
+merkle_tree = MerkleTree(hashes)
