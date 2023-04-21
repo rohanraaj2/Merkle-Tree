@@ -12,9 +12,10 @@ def submit_claim():
     medical_bills = medical_bills_input.get()
     witness = witness_input.get()
 
-    append_treelist(name.strip() + policy.strip() + incident_date.strip() + incident_location.strip() + description.strip() + injured_person.strip() + medical_bills.strip() + witness.strip())
-    
-     # clear the entry fields
+    append_treelist(name.strip() + policy.strip() + incident_date.strip() + incident_location.strip() +
+                    description.strip() + injured_person.strip() + medical_bills.strip() + witness.strip())
+
+    # clear the entry fields
     name_input.delete(0, tk.END)
     policy_input.delete(0, tk.END)
     incident_date_input.delete(0, tk.END)
@@ -26,9 +27,10 @@ def submit_claim():
 
     # output_label.config(text="Claim submitted successfully!")
 
+
 def Make_Claims():
-    
-    global name_input, policy_input, incident_date_input, incident_location_input, description_input, injured_person_input,medical_bills_input, witness_input
+
+    global name_input, policy_input, incident_date_input, incident_location_input, description_input, injured_person_input, medical_bills_input, witness_input
 
     # create input fields
     name_label = tk.Label(root, text="Name:")
@@ -80,9 +82,9 @@ def Make_Claims():
     witness_input.grid(row=7, column=1, padx=5, pady=5)
 
     # create submit button
-    submit_button = tk.Button(root, text="Submit Claim", command= lambda: (submit_claim(), on_next()))
+    submit_button = tk.Button(
+        root, text="Submit Claim", command=lambda: (submit_claim(), on_next()))
     submit_button.grid(row=8, column=0, columnspan=2, padx=5, pady=5)
-    
 
 
 def on_next():
@@ -98,6 +100,7 @@ def on_next():
 
         # label.config(text="No more values")
 
+
 def generate_values():
     Claim_number.grid_forget()
     Claim_label.grid_forget()
@@ -105,28 +108,48 @@ def generate_values():
     for i in range(2):
         yield i
 
-def append_treelist(val : str):
-    tree_list.append(val)
 
+def append_treelist(val: str):
+    tree_list.append(val)
 
 
 values = generate_values()
 
 root = tk.Tk()
 
-tree_list=[]
+tree_list = []
 
 root.title("Insurance Claim Form")
 
-Claim_label = tk.Label(root, text="How many Claims:")
-Claim_label.grid(row=7, column=0, padx=5, pady=5)
+Claim_label = tk.Label(root, text = "Choose from the following options:")
+Claim_label.grid(row=7, column=0, padx=1, pady=1)
 
-Claim_number = tk.Entry(root)
-Claim_number.grid(row=7, column=1, padx=5, pady=5)
+build_button = tk.Button(root, text="Build")
+build_button.grid(row=8, column=0, padx=0, pady=1)
+
+insert_button = tk.Button(root, text="Insert")
+insert_button.grid(row=8, column=1, padx=0, pady=1)
+
+delete_button = tk.Button(root, text="Delete")
+delete_button.grid(row=8, column=2, padx=0, pady=1)
+
+verify_button = tk.Button(root, text="Verify")
+verify_button.grid(row=8, column=3, padx=0, pady=1)
+
+
+def build():
+    Claim_label = tk.Label(root, text="How many Claims:")
+    Claim_label.grid(row=7, column=0, padx=5, pady=5)
+
+    proceed_button = tk.Button(root, text="Proceed", command=lambda: on_next())
+    proceed_button.grid(row=11, column=4, columnspan=2, padx=1, pady=1)
+
+def claim():
+    Claim_number = tk.Entry(root)
+    Claim_number.grid(row=7, column=1, padx=5, pady=5)
 
 # create proceed button
-proceed_button = tk.Button(root, text="proceed", command=lambda:on_next())
-proceed_button.grid(row=8, column=0, columnspan=2, padx=5, pady=5)
+
 
 
 # # create label to show output
