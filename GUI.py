@@ -155,8 +155,66 @@ def claims():
     
 
 def insert():
-    # Claim_label.grid_forget()
-    pass
+    Choice_Label.grid_forget()
+    build_button.grid_forget()
+    insert_button.grid_forget()
+    delete_button.grid_forget()
+    verify_button.grid_forget()
+
+    # Add labels and entries for user information
+    tk.Label(root, text="First Name").grid(row=0, column=0)
+    tk.Entry(root).grid(row=0, column=1)
+
+    tk.Label(root, text="Last Name").grid(row=1, column=0)
+    tk.Entry(root).grid(row=1, column=1)
+
+    tk.Label(root, text="Date of Birth").grid(row=2, column=0)
+    tk.Entry(root).grid(row=2, column=1)
+
+    tk.Label(root, text="Gender").grid(row=3, column=0)
+    tk.Entry(root).grid(row=3, column=1)
+
+    tk.Label(root, text="Email Address").grid(row=4, column=0)
+    tk.Entry(root).grid(row=4, column=1)
+
+    tk.Label(root, text="Phone Number").grid(row=5, column=0)
+    tk.Entry(root).grid(row=5, column=1)
+
+    tk.Label(root, text="Mailing Address").grid(row=6, column=0)
+    tk.Entry(root).grid(row=6, column=1)
+
+    tk.Label(root, text="Type of Insurance").grid(row=7, column=0)
+    tk.Entry(root).grid(row=7, column=1)
+
+    tk.Label(root, text="Coverage Start Date").grid(row=8, column=0)
+    tk.Entry(root).grid(row=8, column=1)
+
+    tk.Label(root, text="Coverage End Date").grid(row=9, column=0)
+    tk.Entry(root).grid(row=9, column=1)
+
+    tk.Label(root, text="Policy Number").grid(row=10, column=0)
+    tk.Entry(root).grid(row=10, column=1)
+
+    tk.Label(root, text="Previous Insurance Info").grid(row=11, column=0)
+    tk.Entry(root).grid(row=11, column=1)
+
+    tk.Label(root, text="Medical History").grid(row=12, column=0)
+    tk.Entry(root).grid(row=12, column=1)
+
+    tk.Label(root, text="Driving History").grid(row=13, column=0)
+    tk.Entry(root).grid(row=13, column=1)
+
+    tk.Label(root, text="Home Details").grid(row=14, column=0)
+    tk.Entry(root).grid(row=14, column=1)
+
+    tk.Label(root, text="Beneficiary Info").grid(row=15, column=0)
+    tk.Entry(root).grid(row=15, column=1)
+
+    # Add proceed button
+    proceed_button = tk.Button(root, text="Proceed")
+    proceed_button.grid(row=16, column=3, sticky="SE")
+
+
 def delete():
     pass
 
