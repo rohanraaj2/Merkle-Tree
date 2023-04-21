@@ -102,8 +102,8 @@ def on_next():
 
 
 def generate_values():
-    Claim_number.grid_forget()
-    Claim_label.grid_forget()
+    # Claim_number.grid_forget()
+    # Claim_label.grid_forget()
 
     for i in range(2):
         yield i
@@ -121,36 +121,47 @@ tree_list = []
 
 root.title("Insurance Claim Form")
 
-Claim_label = tk.Label(root, text = "Choose from the following options:")
-Claim_label.grid(row=7, column=0, padx=1, pady=1)
+Choice_Label = tk.Label(root, text = "Choose from the following options:")
+Choice_Label.grid(row=7, column=0, padx=1, pady=1)
 
-build_button = tk.Button(root, text="Build")
+build_button = tk.Button(root, text="Build", command=lambda: claims())
 build_button.grid(row=8, column=0, padx=0, pady=1)
 
-insert_button = tk.Button(root, text="Insert")
+insert_button = tk.Button(root, text="Insert", command=lambda: insert())
 insert_button.grid(row=8, column=1, padx=0, pady=1)
 
-delete_button = tk.Button(root, text="Delete")
+delete_button = tk.Button(root, text="Delete", command=lambda: delete())
 delete_button.grid(row=8, column=2, padx=0, pady=1)
 
-verify_button = tk.Button(root, text="Verify")
+verify_button = tk.Button(root, text="Verify", command=lambda: verify())
 verify_button.grid(row=8, column=3, padx=0, pady=1)
 
 
-def build():
+
+def claims():
+    Choice_Label.grid_forget()
+    build_button.grid_forget()
+    insert_button.grid_forget()
+    delete_button.grid_forget()
+    verify_button.grid_forget()
     Claim_label = tk.Label(root, text="How many Claims:")
     Claim_label.grid(row=7, column=0, padx=5, pady=5)
-
-    proceed_button = tk.Button(root, text="Proceed", command=lambda: on_next())
-    proceed_button.grid(row=11, column=4, columnspan=2, padx=1, pady=1)
-
-def claim():
     Claim_number = tk.Entry(root)
     Claim_number.grid(row=7, column=1, padx=5, pady=5)
 
-# create proceed button
+    # create proceed button
+    proceed_button = tk.Button(root, text="Proceed", command=lambda: on_next())
+    proceed_button.grid(row=11, column=4, columnspan=2, padx=1, pady=1)
+    
 
+def insert():
+    # Claim_label.grid_forget()
+    pass
+def delete():
+    pass
 
+def verify():
+    pass
 
 # # create label to show output
 # output_label = tk.Label(root, text="")
