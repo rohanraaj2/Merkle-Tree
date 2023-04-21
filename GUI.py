@@ -121,29 +121,32 @@ tree_list = []
 
 root.title("Insurance Claim Form")
 
-Choice_Label = tk.Label(root, text = "Choose from the following options:")
+Choice_Label = tk.Label(root, text="Choose from the following options:")
 Choice_Label.grid(row=7, column=0, padx=1, pady=1)
 
 build_button = tk.Button(root, text="Build", command=lambda: claims())
-build_button.grid(row=8, column=0, padx=0, pady=1)
+build_button.grid(row=8, column=1, sticky="W")
 
 insert_button = tk.Button(root, text="Insert", command=lambda: insert())
-insert_button.grid(row=8, column=1, padx=0, pady=1)
+insert_button.grid(row=8, column=2, sticky="W")
 
 delete_button = tk.Button(root, text="Delete", command=lambda: delete())
-delete_button.grid(row=8, column=2, padx=0, pady=1)
+delete_button.grid(row=8, column=3, sticky="W")
 
 verify_button = tk.Button(root, text="Verify", command=lambda: verify())
-verify_button.grid(row=8, column=3, padx=0, pady=1)
-
+verify_button.grid(row=8, column=4, sticky="W")
 
 
 def claims():
+
+    # clear the entry fields
     Choice_Label.grid_forget()
     build_button.grid_forget()
     insert_button.grid_forget()
     delete_button.grid_forget()
     verify_button.grid_forget()
+
+    # Add labels and entries for user information
     Claim_label = tk.Label(root, text="How many Claims:")
     Claim_label.grid(row=7, column=0, padx=5, pady=5)
     Claim_number = tk.Entry(root)
@@ -152,9 +155,11 @@ def claims():
     # create proceed button
     proceed_button = tk.Button(root, text="Proceed", command=lambda: on_next())
     proceed_button.grid(row=11, column=4, columnspan=2, padx=1, pady=1)
-    
+
 
 def insert():
+
+    # clear the entry fields
     Choice_Label.grid_forget()
     build_button.grid_forget()
     insert_button.grid_forget()
@@ -218,11 +223,13 @@ def insert():
 def delete():
     pass
 
+
 def verify():
     pass
 
 # # create label to show output
 # output_label = tk.Label(root, text="")
 # output_label.grid(row=9, column=0, columnspan=2, padx=5, pady=5)
+
 
 root.mainloop()
