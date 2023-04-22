@@ -122,7 +122,7 @@ tree_list = []
 root.title("Insurance Claim Form")
 
 Choice_Label = tk.Label(root, text="Choose from the following options:")
-Choice_Label.grid(row=7, column=0, padx=1, pady=1)
+Choice_Label.grid(row=7, column=0, sticky="W")
 
 build_button = tk.Button(root, text="Build", command=lambda: claims())
 build_button.grid(row=8, column=1, sticky="W")
