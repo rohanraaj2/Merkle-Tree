@@ -150,11 +150,22 @@ def claims():
     Claim_label = tk.Label(root, text="How many Claims:")
     Claim_label.grid(row=7, column=0, padx=5, pady=5)
     Claim_number = tk.Entry(root)
+
+    def validate_input(input):
+        if not input.isdigit():
+            print("Invalid input. Please enter a valid number.")
+            return False
+        return True
+
+    vcmd = (root.register(validate_input), '%P')
+    Claim_number.config(validate="key", validatecommand=vcmd)
+
     Claim_number.grid(row=7, column=1, padx=5, pady=5)
 
     # create proceed button
     proceed_button = tk.Button(root, text="Proceed", command=lambda: on_next())
     proceed_button.grid(row=11, column=4, columnspan=2, padx=1, pady=1)
+
 
 
 def insert():
