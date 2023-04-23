@@ -37,7 +37,7 @@ class MerkleTree:
     def insert(self, value, hashes : list):
         # adds values to the list
 
-        node = Node(None,None,self.hash(value),value)                                  # create a new node 
+        node = Node(None,None,self.hash(value),value)       # create a new node 
         hashes.append(node.value)                           # add the new node to the hash list
         self.buildTree(hashes)                              # re-build the tree after insertion
 
