@@ -96,8 +96,7 @@ def on_next():
     except StopIteration:
         print("No more values")
         print(tree_list)
-        MerkleTree(tree_list)
-
+        tree = MerkleTree(tree_list)
         # label.config(text="No more values")
 
 
@@ -249,7 +248,7 @@ def delete():
     # clear the entry fields
     clearer()
 
-    tk.Label(root, text="ID to delete:").grid(row=0, column=0)
+    tk.Label(root, text="Registration ID:").grid(row=0, column=0)
     delete_ID = tk.Entry(root)
     delete_ID.grid(row=0, column=1)
 
