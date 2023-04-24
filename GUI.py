@@ -2,14 +2,12 @@ import tkinter as tk
 from Merkle_Tree import *
 
 
-def generate_values():
-    # Claim_number.grid_forget()
+def generate_values(iterator: int):
+    Claim_number.grid_forget()
     # Claim_label.grid_forget()
 
-    for i in range(2):
+    for i in range(iterator):
         yield i
-
-values = generate_values()
 
 root = tk.Tk()
 
@@ -17,21 +15,34 @@ tree_list = []
 
 root.title("Insurance Claim Form")
 
-Choice_Label = tk.Label(root, text="Choose from the following options:")
-Choice_Label.grid(row=7, column=0, sticky="W")
+operation_type= []
 
-build_button = tk.Button(root, text="Build", command=lambda: claims())
-build_button.grid(row=8, column=1, sticky="W")
+def insert(): 
+#     # clear the entry fields
+    operation_type.append("I")
+    clearer()
+    Make_Claims()
 
-insert_button = tk.Button(root, text="Insert", command=lambda: insert())
-insert_button.grid(row=8, column=2, sticky="W")
+def Choice():
+    
+    global Choice_Label, build_button, insert_button, delete_button, verify_button
 
-delete_button = tk.Button(root, text="Delete", command=lambda: delete())
-delete_button.grid(row=8, column=3, sticky="W")
+    Choice_Label = tk.Label(root, text="Choose from the following options:")
+    Choice_Label.grid(row=7, column=0, sticky="W")
 
-verify_button = tk.Button(root, text="Verify", command=lambda: verify())
-verify_button.grid(row=8, column=4, sticky="W")
+    build_button = tk.Button(root, text="Build", command=lambda: claims())
+    build_button.grid(row=8, column=1, sticky="W")
 
+    insert_button = tk.Button(root, text="Insert", command=lambda: insert())
+    insert_button.grid(row=8, column=2, sticky="W")
+
+    delete_button = tk.Button(root, text="Delete", command=lambda: delete())
+    delete_button.grid(row=8, column=3, sticky="W")
+
+    verify_button = tk.Button(root, text="Verify", command=lambda: verify())
+    verify_button.grid(row=8, column=4, sticky="W")
+
+Choice()
 
 def append_treelist(val: str):
     tree_list.append(val)    
@@ -59,13 +70,21 @@ def submit_claim():
     injured_person_input.delete(0, tk.END)
     medical_bills_input.delete(0, tk.END)
     witness_input.delete(0, tk.END)
+    delete_claim_fields()
 
-    # output_label.config(text="Claim submitted successfully!")
+    print(tree_list[-1])
+
+    if (operation_type[-1]=='I'):
+        # Main_tree.insert(tree_list[-1])
+        return_to_main_screen()
+
+
 
 
 def Make_Claims():
 
     global name_input, policy_input, incident_date_input, incident_location_input, description_input, injured_person_input, medical_bills_input, witness_input
+    global name_label, policy_label, incident_date_label, incident_location_label, description_label, injured_person_label, medical_bills_label, witness_label
 
     # create input fields
     name_label = tk.Label(root, text="Name:")
@@ -117,163 +136,124 @@ def Make_Claims():
     witness_input.grid(row=7, column=1, padx=5, pady=5)
 
     # create submit button
-    submit_button = tk.Button(
-        root, text="Submit Claim", command=lambda: (submit_claim(), on_next()))
-    submit_button.grid(row=8, column=0, columnspan=2, padx=5, pady=5)
+    print(".............operation type: ",operation_type[-1],"..............")
+    global submit_button
+    if (operation_type[-1] == "C"):
+        submit_button = tk.Button(
+            root, text="Submit Claim", command=lambda: (submit_claim(), on_next()))
+        submit_button.grid(row=8, column=0, columnspan=2, padx=5, pady=5)
+
+    elif (operation_type[-1] == "I"):
+        submit_button = tk.Button(
+            root, text="Submit Claim", command=lambda: (submit_claim()))
+        submit_button.grid(row=8, column=0, columnspan=2, padx=5, pady=5)
+
+
+def Main_and_Choice():
+    return_to_main.grid_forget()
+    Choice()
+
+def delete_claim_fields():
+    print("I AM CALLLLLEDDDD")
+    submit_button.grid_forget()
+    name_label.grid_forget()
+    name_input.grid_forget()
+    policy_label.grid_forget()
+    policy_input.grid_forget()
+    incident_date_label.grid_forget()
+    incident_date_input.grid_forget()
+    incident_location_label.grid_forget()
+    incident_location_input.grid_forget()
+    description_label.grid_forget()
+    description_input.grid_forget()
+    injured_person_label.grid_forget()
+    injured_person_input.grid_forget()
+    medical_bills_label.grid_forget()
+    medical_bills_input.grid_forget()
+    witness_label.grid_forget()
+    witness_input.grid_forget()
+
+def return_to_main_screen():
+    global return_to_main
+    delete_claim_fields()
+    return_to_main = tk.Button(root, text="Your Task has ended! Click to return_to_main", command=lambda: (Main_and_Choice()))
+    return_to_main.grid(row=11, column=4, columnspan=2, padx=2, pady=2)
+
 
 
 def on_next():
     try:
         value = next(values)
-        # label.config(text=value)
         print(value)
         Make_Claims()
     except StopIteration:
         print("No more values")
         print(tree_list)
+        global Main_tree
+        Main_tree = MerkleTree(tree_list)
+        return_to_main_screen()
 
-        # label.config(text="No more values")
+def set_values() -> int :
+    global values
+    Total_Claims = Claim_number.get() 
+    print("...........",Total_Claims,"...........")
+    values = generate_values( int(Total_Claims) )
+
+
+def remove_Claim_widgets():
+    Claim_label.grid_forget()
+    Claim_number.grid_forget()
+    proceed_button.grid_forget()
+
 
 def claims():
-
-    # clear the entry fields
+    
+    # remove the existing widgets
     clearer()
+    global operation_type
+    operation_type.append("C")
+    widgets_to_remove = [Choice_Label, build_button, insert_button, delete_button, verify_button]
+    for widget in widgets_to_remove:
+        widget.grid_forget()
 
-    # Add labels and entries for user information
-    Claim_label = tk.Label(root, text="How many Claims:")
-    Claim_label.grid(row=7, column=0, padx=5, pady=5)
+    # create the new widgets
+    global Claim_number, Claim_label
+
+    Claim_label = tk.Label(root, text="Enter the number of claims:")
+    Claim_label.grid(row=0, column=0, padx=5, pady=5)
+
     Claim_number = tk.Entry(root)
-
-    def validate_input(input):
-        if not input.isdigit():
-            print("Invalid input. Please enter a valid number.")
-            return False
-        return True
-
-    vcmd = (root.register(validate_input), '%P')
-    Claim_number.config(validate="key", validatecommand=vcmd)
-
-    Claim_number.grid(row=7, column=1, padx=5, pady=5)
+    Claim_number.grid(row=0, column=1, padx=5, pady=5)
 
     # create proceed button
-    proceed_button = tk.Button(root, text="Proceed", command=lambda: on_next())
+    global proceed_button
+    proceed_button = tk.Button(root, text="Proceed", command=lambda: (set_values(),remove_Claim_widgets(), on_next()))
     proceed_button.grid(row=11, column=4, columnspan=2, padx=1, pady=1)
 
-tree = MerkleTree(tree_list)
 
+# def clear_entries(*entries):
+#     for entry in entries:
+#         entry.delete(0, tk.END)
 
-
-def insert():
-    # clear the entry fields
-    clearer()
-
-    name = name_input.get()
-    policy = policy_input.get()
-    incident_date = incident_date_input.get()
-    incident_location = incident_location_input.get()
-    description = description_input.get()
-    injured_person = injured_person_input.get()
-    medical_bills = medical_bills_input.get()
-    witness = witness_input.get()
-
-    tree.insert()
+def delete(): pass
     
-    # Add labels and entries for user information
-    # tk.Label(root, text="First Name").grid(row=0, column=0)
-    # first_name = tk.Entry(root)
-    # first_name.grid(row=0, column=1)
+#     # clear the entry fields
+#     clearer()
 
-    # tk.Label(root, text="Last Name").grid(row=1, column=0)
-    # last_name = tk.Entry(root)
-    # last_name.grid(row=1, column=1)
+#     tk.Label(root, text="Registration ID:").grid(row=0, column=0)
+#     delete_ID = tk.Entry(root)
+#     delete_ID.grid(row=0, column=1)
 
-    # tk.Label(root, text="Date of Birth").grid(row=2, column=0)
-    # date_of_birth = tk.Entry(root)
-    # date_of_birth.grid(row=2, column=1)
-
-    # tk.Label(root, text="Gender").grid(row=3, column=0)
-    # gender = tk.Entry(root)
-    # gender.grid(row=3, column=1)
-
-    # tk.Label(root, text="Email Address").grid(row=4, column=0)
-    # email_address = tk.Entry(root)
-    # email_address.grid(row=4, column=1)
-
-    # tk.Label(root, text="Phone Number").grid(row=5, column=0)
-    # phone_number = tk.Entry(root)
-    # phone_number.grid(row=5, column=1)
-
-    # tk.Label(root, text="Mailing Address").grid(row=6, column=0)
-    # mailing_address = tk.Entry(root)
-    # mailing_address.grid(row=6, column=1)
-
-    # tk.Label(root, text="Type of Insurance").grid(row=7, column=0)
-    # insurance_type = tk.Entry(root)
-    # insurance_type.grid(row=7, column=1)
-
-    # tk.Label(root, text="Coverage Start Date").grid(row=8, column=0)
-    # coverage_start_date = tk.Entry(root)
-    # coverage_start_date.grid(row=8, column=1)
-
-    # tk.Label(root, text="Coverage End Date").grid(row=9, column=0)
-    # coverage_end_date = tk.Entry(root)
-    # coverage_end_date.grid(row=9, column=1)
-
-    # tk.Label(root, text="Policy Number").grid(row=10, column=0)
-    # policy_number = tk.Entry(root)
-    # policy_number.grid(row=10, column=1)
-
-    # tk.Label(root, text="Previous Insurance Info").grid(row=11, column=0)
-    # previous_insurance_info = tk.Entry(root)
-    # previous_insurance_info.grid(row=11, column=1)
-
-    # tk.Label(root, text="Medical History").grid(row=12, column=0)
-    # medical_history = tk.Entry(root)
-    # medical_history.grid(row=12, column=1)
-
-    # tk.Label(root, text="Driving History").grid(row=13, column=0)
-    # driving_history = tk.Entry(root)
-    # driving_history.grid(row=13, column=1)
-
-    # tk.Label(root, text="Home Details").grid(row=14, column=0)
-    # home_details = tk.Entry(root)
-    # home_details.grid(row=14, column=1)
-
-    # tk.Label(root, text="Beneficiary Info").grid(row=15, column=0)
-    # beneficiary_info = tk.Entry(root)
-    # beneficiary_info.grid(row=15, column=1)
-
-    # Add proceed button
-    # proceed_button = tk.Button(root, text="Proceed", command=lambda: clear_entries(
-    #     first_name, last_name, date_of_birth, gender, email_address, phone_number, mailing_address,
-    #     insurance_type, coverage_start_date, coverage_end_date, policy_number, previous_insurance_info,
-    #     medical_history, driving_history, home_details, beneficiary_info))
-    # proceed_button.grid(row=16, column=3, sticky="SE")
-
-
-def clear_entries(*entries):
-    for entry in entries:
-        entry.delete(0, tk.END)
-
-def delete():
-    
-    # clear the entry fields
-    clearer()
-
-    tk.Label(root, text="Registration ID:").grid(row=0, column=0)
-    delete_ID = tk.Entry(root)
-    delete_ID.grid(row=0, column=1)
-
-    proceed_button = tk.Button(root, text="Delete", command=lambda: clear_entries(delete_ID))
-    proceed_button.grid(row=16, column=3, sticky="SE")
+#     proceed_button = tk.Button(root, text="Delete", command=lambda: clear_entries(delete_ID))
+#     proceed_button.grid(row=16, column=3, sticky="SE")
 
 def clearer():
     # clear the entry fields
-    Choice_Label.grid_forget()
-    build_button.grid_forget()
-    insert_button.grid_forget()
-    delete_button.grid_forget()
-    verify_button.grid_forget() 
+    Choice_Label. grid_forget()
+    build_button. grid_forget()
+    insert_button. grid_forget()
+    delete_button. grid_forget()
+    verify_button. grid_forget() 
 
 def verify():
     pass

@@ -36,19 +36,6 @@ class MerkleTree:
         print("root: ", self.root.hashval)
         self.print_tree(self.root)
 
-    def insert(self, value, words : list):
-        # adds values to the list
-
-        node = Node(None,None,self.hash(value),value)       # create a new node 
-        words.append(node.value)                           # add the new node to the hash list
-        self.buildTree(words)                              # re-build the tree after insertion
-
-    def delete(self, value, words : list):
-        # deletes values from the list
-
-        words.remove(value)                                # removes the value from the list
-        self.buildTree(words)                              # re-build the tree after deletion
-
     def verify(self, proof, value, root_hash):
         # verifies the merkle proof for the given value
         # returns True if correct, False if incorrect
@@ -68,7 +55,7 @@ class MerkleTree:
 
     # helper functions
     def _buildTree(self, nodes: list[Node]) -> Node:
-        print("nodes list", nodes)
+        # print("nodes list", nodes)
         if len(nodes) % 2 != 0:                             # if no. of nodes are odd, duplicate the last node to make it even
             nodes.append(nodes[-1])
             print("duplicating")
@@ -99,8 +86,9 @@ class MerkleTree:
 
 # words = ["hash1", "hash2", "hash3"]
 # merkle_tree = MerkleTree(words)
-# merkle_tree.insert("hash4",words=["hash1", "hash2", "hash3"])
-# merkle_tree.delete("hash4",words=["hash1", "hash2", "hash3","hash4"])
 
-words = ["hash1", "hash2", "hash3", "hash4", "hash5"]
-merkle_tree = MerkleTree(words)
+# hashes = ["My", "name", "is", "Ayila"]
+# merkle_tree = MerkleTree(hashes)
+
+# hashes = ["My", "name", "is", "Ayla"]
+# merkle_tree = MerkleTree(hashes)
