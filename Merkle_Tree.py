@@ -1,5 +1,7 @@
 import hashlib
 
+# Understanding: data is coming in the form of a list which will be used to create the merkle tree.
+
 class Node:
     def __init__(self, left, right, hashval, value):
         self.left = left
@@ -8,17 +10,17 @@ class Node:
         self.value = value                              # represents content of node
 
 class MerkleTree:
-    def __init__(self, hashes: list):
-        self.buildTree(hashes)
+    def __init__(self, words: list):
+        self.buildTree(words)
 
     def hash(self, val : str) -> str:
         return hashlib.sha256(val.encode('utf-8')).hexdigest()    # returns hash value of provided node    
 
-    def buildTree(self, hashes: list) -> None:
+    def buildTree(self, words: list) -> None:
         # builds a tree from the dataset 
 
         nodes = []                                          # creates the initial list of nodes that will be stored in the merkle tree
-        for val in hashes:
+        for val in words:
             print(val)
             print("node hash", self.hash(val))
             node = Node(None,None,self.hash(val),val)
@@ -27,32 +29,32 @@ class MerkleTree:
 
         if len(nodes) % 2 != 0:                             # if no of nodes are odd, duplicate the last node to make it even
             nodes.append(nodes[-1])
-            print("dup")
+            print("dup", nodes)
 
         self.root = self._buildTree(nodes)                  # resulting tree is stored in the root of the MerkleTree object
         # print("root: ", self.root.value)
         print("root: ", self.root.hashval)
         self.print_tree(self.root)
 
-    def insert(self, value, hashes : list):
+    def insert(self, value, words : list):
         # adds values to the list
 
         node = Node(None,None,self.hash(value),value)       # create a new node 
-        hashes.append(node.value)                           # add the new node to the hash list
-        self.buildTree(hashes)                              # re-build the tree after insertion
+        words.append(node.value)                           # add the new node to the hash list
+        self.buildTree(words)                              # re-build the tree after insertion
 
-    def delete(self, value, hashes : list):
+    def delete(self, value, words : list):
         # deletes values from the list
 
-        hashes.remove(value)                                # removes the value from the list
-        self.buildTree(hashes)                              # re-build the tree after deletion
+        words.remove(value)                                # removes the value from the list
+        self.buildTree(words)                              # re-build the tree after deletion
 
     def verify(self, proof, value, root_hash):
         # verifies the merkle proof for the given value
         # returns True if correct, False if incorrect
         pass
 
-    def get_proof(self, value, hashes : list):
+    def get_proof(self, value, words : list):
         # proves that the value exists in the tree
         # returns the proof for the given value
         pass
@@ -66,7 +68,7 @@ class MerkleTree:
 
     # helper functions
     def _buildTree(self, nodes: list[Node]) -> Node:
-        
+        print("nodes list", nodes)
         if len(nodes) % 2 != 0:                             # if no. of nodes are odd, duplicate the last node to make it even
             nodes.append(nodes[-1])
             print("duplicating")
@@ -92,16 +94,13 @@ class MerkleTree:
 
 
 # Testing
-# hashes = ["hash1", "hash2"]
-# merkle_tree = MerkleTree(hashes)
+# words = ["hash1", "hash2"]
+# merkle_tree = MerkleTree(words)
 
-# hashes = ["hash1", "hash2", "hash3"]
-# merkle_tree = MerkleTree(hashes)
-# merkle_tree.insert("hash4",hashes=["hash1", "hash2", "hash3"])
-# merkle_tree.delete("hash4",hashes=["hash1", "hash2", "hash3","hash4"])
+# words = ["hash1", "hash2", "hash3"]
+# merkle_tree = MerkleTree(words)
+# merkle_tree.insert("hash4",words=["hash1", "hash2", "hash3"])
+# merkle_tree.delete("hash4",words=["hash1", "hash2", "hash3","hash4"])
 
-hashes = ["My", "name", "is", "Ayila"]
-merkle_tree = MerkleTree(hashes)
-
-hashes = ["My", "name", "is", "Ayla"]
-merkle_tree = MerkleTree(hashes)
+words = ["hash1", "hash2", "hash3", "hash4", "hash5"]
+merkle_tree = MerkleTree(words)
