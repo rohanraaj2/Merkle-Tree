@@ -100,8 +100,8 @@ class MerkleTree:
 # merkle_tree.insert("hash4",hashes=["hash1", "hash2", "hash3"])
 # merkle_tree.delete("hash4",hashes=["hash1", "hash2", "hash3","hash4"])
 
-hashes = ["My", "name", "is", "Ayila"]
-merkle_tree = MerkleTree(hashes)
+# hashes = ["My", "name", "is", "Ayila"]
+# merkle_tree = MerkleTree(hashes)
 
-hashes = ["My", "name", "is", "Ayla"]
-merkle_tree = MerkleTree(hashes)
+# hashes = ["My", "name", "is", "Ayla"]
+# merkle_tree = MerkleTree(hashes)
