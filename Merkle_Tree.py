@@ -77,7 +77,7 @@ class MerkleTree:
  
         # if only 2 elements exist, the new node is the hash of the hashes of the two
         if len(nodes) == 2:        
-            print("node0",nodes[0], "node1 ",nodes[1])                         
+            # print("node0",nodes[0], "node1 ",nodes[1])                         
             node = Node(nodes[0], nodes[1], self.hash(nodes[0].hashval + nodes[1].hashval), nodes[0].value+"+"+nodes[1].value)
             return node
  
@@ -104,6 +104,10 @@ class MerkleTree:
             node = Node(None,None,self.hash(val),val)
             nodes.append(node) 
         return nodes    
+    
+    def _get_merkle_root(self):
+        # returns the merkle root
+        return self.root
 
 # Testing
 # words = ["hash1", "hash2"]
