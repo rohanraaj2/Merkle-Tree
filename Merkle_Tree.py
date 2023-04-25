@@ -36,7 +36,7 @@ class MerkleTree:
         print("root: ", self.root.hashval)
         self.print_tree(self.root)
 
-    def insert(self, value, words: list, nodes: list[Node]):
+    def insert(self, value, nodes: list[Node]):
         # inserts a new word to the list
 
         node = Node(None,None,self.hash(value),value)
@@ -48,6 +48,8 @@ class MerkleTree:
 
         # calls update tree function so that it can: add node to nodes list
         # update tree here
+        print("root",self.root.value)
+        self._update_tree(self.root,nodes)
 
         pass
 
@@ -96,16 +98,18 @@ class MerkleTree:
         return tree
 
     def _update_tree(self, node : Node, nodes : list[Node]) -> Node:
-        # updates the right most branch of the tree after insertion of a node 
+        # updates the right most branch of the tree after insertion of a node
+        print("reached") 
         if node.right == None:
-            if node in nodes:
+            # if node in nodes:
                 # If the current node is one of the nodes that needs to be updated, calculate the new hash and value
-                left = node.left
-                right = node.right
-                hashval = self.hash(left.hashval + right.hashval)  # Calculate the new hash based on the hashes of the children
-                value = f'{left.value}+{right.value}'  # Calculate the new value based on the values of the children
-                node.hashval = hashval  # Update the hash of the current node
-                node.value = value  # Update the value of the current node
+            print("here")
+            left = node.left
+            right = node.right
+            hashval = self.hash(left.hashval + right.hashval)       # Calculate the new hash based on the hashes of the children
+            value = f'{left.value}+{right.value}'                   # Calculate the new value based on the values of the children
+            node.hashval = hashval                                  # Update the hash of the current node
+            node.value = value                                      # Update the value of the current node
             return node
         else:
             # Traverse to the right child of the current node recursively
@@ -119,6 +123,7 @@ class MerkleTree:
 
 words = ["hash1", "hash2", "hash3"]
 merkle_tree = MerkleTree(words)
+merkle_tree.insert("hash4",["hash1", "hash2", "hash3"])
 
 # hashes = ["My", "name", "is", "Ayila"]
 # merkle_tree = MerkleTree(hashes)
