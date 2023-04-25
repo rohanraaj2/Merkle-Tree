@@ -60,10 +60,40 @@ class MerkleTree:
             leaf_index //= 2
         return calculated_root_hash == root_hash
 
-    def get_proof(self, value, words : list):
-        # proves that the value exists in the tree
-        # returns the proof for the given value
-        pass
+    def get_proof(self, leaf_index, include_leaf=True):
+        proof = []
+        nodes = [self.root]
+        while len(nodes) > 0 and nodes[0].left is not None:
+            node = nodes[0]
+            if leaf_index % 2 == 0:
+                sibling = node.right
+                proof.append((leaf_index+1, sibling.hashval))
+            else:
+                sibling = node.left
+                proof.append((leaf_index-1, sibling.hashval))
+            nodes = [sibling] + nodes[1:]
+            leaf_index //= 2
+        if include_leaf:
+            proof.append((leaf_index, self.get_leaf(leaf_index).hashval))
+        return proof[::-1]
+
+    def get_leaf(self, index):
+        # returns the leaf node at the specified index in the tree
+        nodes = [self.root]
+        while nodes:
+            node = nodes.pop()
+            if node.left is None and node.right is None:
+                if index == 0:
+                    return node
+                else:
+                    index -= 1
+            else:
+                if index % 2 == 0:
+                    nodes.append(node.right)
+                else:
+                    nodes.append(node.left)
+                index //= 2
+        raise IndexError('Index out of range')
 
     def print_tree(self, node: Node) -> None: 
         # prints the values of the tree
