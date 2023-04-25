@@ -225,7 +225,8 @@ def submit_claim():
     print(tree_list[-1])
 
     if (operation_type[-1]=='I'):
-        # Main_tree.insert(tree_list[-1])
+        hash_list = Main_tree._get_leaf_nodes( tree_list[ : len(tree_list) - 1 ] )
+        Main_tree.insert(tree_list[-1] , hash_list)
         return_to_main_screen()
 
 

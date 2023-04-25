@@ -149,9 +149,9 @@ class MerkleTree:
 # words = ["hash1", "hash2"]
 # merkle_tree = MerkleTree(words)
 
-words = ["hash1", "hash2", "hash3"]
-merkle_tree = MerkleTree(words)
-merkle_tree.insert("hash4",merkle_tree._get_leaf_nodes(words))
+# words = ["hash1", "hash2", "hash3"]
+# merkle_tree = MerkleTree(words)
+# merkle_tree.insert("hash4",merkle_tree._get_leaf_nodes(words))
 
 # hashes = ["My", "name", "is", "Ayila"]
 # merkle_tree = MerkleTree(hashes)
