@@ -34,7 +34,7 @@ class MerkleTree:
     def insert(self, value, nodes: list[Node]):
         # inserts a new word to the list
 
-        node = Node(None,None,self.hash(value),value)
+        node = Node(None,None,self.hash(value),value)       # create a new node using value
 
         if nodes[-1] == nodes[-2]:                          # if there is a duplication
             nodes[-1] = node                                # overwrite the duplicate with the new node
@@ -43,15 +43,9 @@ class MerkleTree:
 
         if len(nodes) % 2 != 0:                             # if no of nodes are odd, duplicate the last node to make it even
             nodes.append(nodes[-1])
-            print("dup", nodes)
-        print("nodes ", nodes)
+
         self.root = self._buildTree(nodes)                  # rebuilding the tree here
         self.print_tree(self.root)
-
-        # calls update tree function so that it can: add node to nodes list
-        # update tree here
-        # print("root",self.root.value)
-        # self._update_tree(self.root,nodes)
 
         pass
 
