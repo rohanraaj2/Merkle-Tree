@@ -41,10 +41,7 @@ def Choice():
     verify_button = tk.Button(root, text="Verify", command=lambda: verify())
     verify_button.grid(row=8, column=4, sticky="W")
 
-
 Choice()
-
-
 
 def claims():
 
@@ -96,7 +93,6 @@ def insert():
     clearer()
     Make_Claims()
 
-
 def clearer():
     # clear the entry fields
     Choice_Label. grid_forget()
@@ -119,12 +115,14 @@ def delete(): pass
 
 
 def verify():
-    pass
+    operation_type.append("V")
+
+    clearer()
+    Make_Claims()
 
 # # create label to show output
 # output_label = tk.Label(root, text="")
 # output_label.grid(row=9, column=0, columnspan=2, padx=5, pady=5)
-
 
 def Make_Claims():
 
@@ -194,8 +192,10 @@ def Make_Claims():
             root, text="Submit Claim", command=lambda: (submit_claim()))
         submit_button.grid(row=8, column=0, columnspan=2, padx=5, pady=5)
 
-
-
+    elif (operation_type[-1] == "V"):
+        submit_button = tk.Button(
+            root, text="Verify", command=lambda: (verification_check()))
+        submit_button.grid(row=8, column=0, columnspan=2, padx=5, pady=5)
 
 def submit_claim():
 
@@ -229,6 +229,27 @@ def submit_claim():
         Main_tree.insert(tree_list[-1] , hash_list)
         return_to_main_screen()
 
+def verification_check():
+    name = name_input.get()
+    policy = policy_input.get()
+    incident_date = incident_date_input.get()
+    incident_location = incident_location_input.get()
+    description = description_input.get()
+    injured_person = injured_person_input.get()
+    medical_bills = medical_bills_input.get()
+    witness = witness_input.get()
+
+    
+
+    name_input.delete(0, tk.END)
+    policy_input.delete(0, tk.END)
+    incident_date_input.delete(0, tk.END)
+    incident_location_input.delete(0, tk.END)
+    description_input.delete(0, tk.END)
+    injured_person_input.delete(0, tk.END)
+    medical_bills_input.delete(0, tk.END)
+    witness_input.delete(0, tk.END)
+    delete_claim_fields()
 
 def on_next():
     try:
@@ -241,7 +262,6 @@ def on_next():
         global Main_tree
         Main_tree = MerkleTree(tree_list)
         return_to_main_screen()
-
 
 def append_treelist(val: str):
     tree_list.append(val)
@@ -271,6 +291,5 @@ def delete_claim_fields():
     medical_bills_input.grid_forget()
     witness_label.grid_forget()
     witness_input.grid_forget()
-
 
 root.mainloop()
