@@ -19,12 +19,7 @@ class MerkleTree:
     def buildTree(self, words: list) -> None:
         # builds a tree from the dataset 
 
-        nodes = []                                          # creates the initial list of nodes that will be stored in the merkle tree
-        for val in words:
-            print(val)
-            print("node hash", self.hash(val))
-            node = Node(None,None,self.hash(val),val)
-            nodes.append(node)  
+        nodes = self._get_leaf_nodes(words)  
         print("nodes: ", nodes) 
 
         if len(nodes) % 2 != 0:                             # if no of nodes are odd, duplicate the last node to make it even
@@ -32,8 +27,8 @@ class MerkleTree:
             print("dup", nodes)
 
         self.root = self._buildTree(nodes)                  # resulting tree is stored in the root of the MerkleTree object
-        # print("root: ", self.root.value)
-        print("root: ", self.root.hashval)
+        print("root: ", self.root.value)
+        # print("root: ", self.root.hashval)
         self.print_tree(self.root)
 
     def insert(self, value, nodes: list[Node]):
@@ -46,10 +41,17 @@ class MerkleTree:
         else:
             nodes.append(node)                              # else append to list
 
+        if len(nodes) % 2 != 0:                             # if no of nodes are odd, duplicate the last node to make it even
+            nodes.append(nodes[-1])
+            print("dup", nodes)
+        print("nodes ", nodes)
+        self.root = self._buildTree(nodes)                  # rebuilding the tree here
+        self.print_tree(self.root)
+
         # calls update tree function so that it can: add node to nodes list
         # update tree here
-        print("root",self.root.value)
-        self._update_tree(self.root,nodes)
+        # print("root",self.root.value)
+        # self._update_tree(self.root,nodes)
 
         pass
 
@@ -80,9 +82,10 @@ class MerkleTree:
         half: int = len(nodes) // 2                         # to be used to split the tree for obtaining left right branches
  
         # if only 2 elements exist, the new node is the hash of the hashes of the two
-        if len(nodes) == 2:                                 
-            tree = Node(nodes[0], nodes[1], self.hash(nodes[0].hashval + nodes[1].hashval), nodes[0].value+"+"+nodes[1].value)
-            return tree
+        if len(nodes) == 2:        
+            print("node0",nodes[0], "node1 ",nodes[1])                         
+            node = Node(nodes[0], nodes[1], self.hash(nodes[0].hashval + nodes[1].hashval), nodes[0].value+"+"+nodes[1].value)
+            return node
  
         # Recursively build the left and right subtrees
         left = self._buildTree(nodes[:half])
@@ -93,29 +96,20 @@ class MerkleTree:
         value = f'{left.value}+{right.value}'
 
         # Create and return a new node with the calculated hash and value
-        tree = Node(left, right, hashval, value)
+        node = Node(left, right, hashval, value)
         # print("tree", tree.value, tree.left,tree.right)
-        return tree
+        return node
 
-    def _update_tree(self, node : Node, nodes : list[Node]) -> Node:
-        # updates the right most branch of the tree after insertion of a node
-        print("reached") 
-        if node.right == None:
-            # if node in nodes:
-                # If the current node is one of the nodes that needs to be updated, calculate the new hash and value
-            print("here")
-            left = node.left
-            right = node.right
-            hashval = self.hash(left.hashval + right.hashval)       # Calculate the new hash based on the hashes of the children
-            value = f'{left.value}+{right.value}'                   # Calculate the new value based on the values of the children
-            node.hashval = hashval                                  # Update the hash of the current node
-            node.value = value                                      # Update the value of the current node
-            return node
-        else:
-            # Traverse to the right child of the current node recursively
-            node.right = self._update_tree(node.right, nodes)
-            return node
-        pass
+    def _get_leaf_nodes(self, words:list) -> list[Node]:
+        # returns a list of all the leaf nodes before building of the tree
+
+        nodes = []                                          # creates the initial list of nodes that will be stored in the merkle tree
+        for val in words:
+            # print(val)
+            # print("node hash", self.hash(val))
+            node = Node(None,None,self.hash(val),val)
+            nodes.append(node) 
+        return nodes    
 
 # Testing
 # words = ["hash1", "hash2"]
@@ -123,7 +117,7 @@ class MerkleTree:
 
 words = ["hash1", "hash2", "hash3"]
 merkle_tree = MerkleTree(words)
-merkle_tree.insert("hash4",["hash1", "hash2", "hash3"])
+merkle_tree.insert("hash4",merkle_tree._get_leaf_nodes(words))
 
 # hashes = ["My", "name", "is", "Ayila"]
 # merkle_tree = MerkleTree(hashes)
