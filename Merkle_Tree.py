@@ -49,10 +49,16 @@ class MerkleTree:
 
         pass
 
-    def verify(self, proof, value, root_hash):
-        # verifies the merkle proof for the given value
-        # returns True if correct, False if incorrect
-        pass
+    def verify(self, root_hash, leaf_index, leaf_hash):
+        proof = self.get_proof(leaf_index, include_leaf=True)
+        calculated_root_hash = leaf_hash
+        for i, sibling_hash in proof:
+            if leaf_index % 2 == 0:
+                calculated_root_hash = self.hash(calculated_root_hash + sibling_hash)
+            else:
+                calculated_root_hash = self.hash(sibling_hash + calculated_root_hash)
+            leaf_index //= 2
+        return calculated_root_hash == root_hash
 
     def get_proof(self, value, words : list):
         # proves that the value exists in the tree
