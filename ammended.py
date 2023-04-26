@@ -73,49 +73,41 @@ class Merkletree:
         
         return self.generateMerkleRoot(combinedHashes)
 
-    def get_proof(self,hash,hashes):
-        # checks for inclusion of leaf in tree
+    # def get_proof(self, hash, hashes):
+    #     # checks for inclusion of leaf in tree
 
-        tree = self.generateMerkleTree(hashes)   
-        if hash not in tree[0] or len(hashes) == 0:
+    #     tree = self.generateMerkleTree(hashes)   
+    #     proof = []
+    #     if hash not in tree[0] or len(hashes) == 0:
+    #         return None
+    #     else:
+    #         proof.append(self.generateMerkleRoot(hashes))
+    #         for level in range(len(tree)-1):
+    #             direction = self.getLeafNodeDirectionInMerkleTree(hash, tree)
+
+
+    #     pass
+
+    # def insert(self,hash):
+
+
+    def generateMerkleProof(self, hash, hashes):
+        if not hash or not hashes or len(hashes) == 0:
             return None
         
+        tree = self.generateMerkleTree(hashes)
+        merkleProof = [{'hash': hash,'direction': self.getLeafNodeDirectionInMerkleTree(hash, tree) }]
+        hashIndex = tree[0].index(hash)
 
-        pass
+        for level in range(len(tree) - 1):
+            isLeftChild = hashIndex % 2 == 0
+            siblingDirection = 'right' if isLeftChild else 'left'
+            siblingIndex = hashIndex + 1 if isLeftChild else hashIndex - 1
+            siblingNode = {'hash': tree[level][siblingIndex],'direction': siblingDirection}
+            merkleProof.append(siblingNode)
+            hashIndex = hashIndex // 2
 
-    # def generateMerkleProof(self, hash, hashes):
-    #     if not hash or not hashes or len(hashes) == 0:
-    #         return None
-        
-    #     tree = self.generateMerkleTree(hashes)
-    #     merkleProof = [{'hash': hash,'direction': self.getLeafNodeDirectionInMerkleTree(hash, tree) }]
-    #     hashIndex = tree[0].index(hash)
-
-    #     for level in range(len(tree) - 1):
-    #         isLeftChild = hashIndex % 2 == 0
-    #         siblingDirection = 'right' if isLeftChild else 'left'
-    #         siblingIndex = hashIndex + 1 if isLeftChild else hashIndex - 1
-    #         siblingNode = {'hash': tree[level][siblingIndex],'direction': siblingDirection}
-    #         merkleProof.append(siblingNode)
-    #         hashIndex = hashIndex // 2
-
-    #     return merkleProof
-    
-    # def getMerkleRootFromMerkleProof(self, merkleProof):
-    #     if not merkleProof or len(merkleProof) == 0:
-    #         return ''
-        
-    #     merkleRootFromProof = merkleProof[0]
-
-    #     for hashProof in merkleProof[1:]:
-    #         if hashProof['direction'] == 'right':
-    #             hash = hashlib.sha256((merkleRootFromProof['hash'] + hashProof['hash']).encode()).hexdigest()
-    #             merkleRootFromProof = {'hash': hash}
-    #         else:
-    #             hash = hashlib.sha256((hashProof['hash'] + merkleRootFromProof['hash']).encode()).hexdigest()
-    #             merkleRootFromProof = {'hash': hash}
-
-    #     return merkleRootFromProof['hash']
+        return merkleProof
     
     def getLeafNodeDirectionInMerkleTree(self, hash, merkleTree):
         hashIndex = merkleTree[0].index(hash)
@@ -124,6 +116,6 @@ class Merkletree:
         else:
             return 'right'
         
-
 words = ["My", "name","is"]   
-tree = Merkletree(words)     
+tree = Merkletree(words)   
+print(tree.generateMerkleProof('8ed6791bdf3d61a1e6edcbb253979b0a6bef7f3d99dda0fb49cffe96923514b6',['8ed6791bdf3d61a1e6edcbb253979b0a6bef7f3d99dda0fb49cffe96923514b6', '82a3537ff0dbce7eec35d69edc3a189ee6f17d82f353a553f9aa96cb0be3ce89', 'fa51fd49abf67705d6a35d18218c115ff5633aec1f9ebfdc9d5d4956416f57f6']))
