@@ -239,7 +239,16 @@ def verification_check():
     medical_bills = medical_bills_input.get()
     witness = witness_input.get()
 
-    
+    nodes_list = Main_tree._get_leaf_nodes(tree_list)
+    for index, node in enumerate(nodes_list):
+        hash = node.hashval
+        Main_tree.verify(Main_tree.hash(Main_tree.root) ,index, hash)
+    # hash1 = nodes_list[0].hashval
+    # hash2 = nodes_list[1].hashval
+    # hash3 = nodes_list[2].hashval
+    # hash4 = nodes_list[3].hashval
+
+
 
     name_input.delete(0, tk.END)
     policy_input.delete(0, tk.END)
