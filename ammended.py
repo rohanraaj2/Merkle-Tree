@@ -73,23 +73,14 @@ class Merkletree:
         
         return self.generateMerkleRoot(combinedHashes)
 
-    # def get_proof(self, hash, hashes):
-    #     # checks for inclusion of leaf in tree
-
-    #     tree = self.generateMerkleTree(hashes)   
-    #     proof = []
-    #     if hash not in tree[0] or len(hashes) == 0:
-    #         return None
-    #     else:
-    #         proof.append(self.generateMerkleRoot(hashes))
-    #         for level in range(len(tree)-1):
-    #             direction = self.getLeafNodeDirectionInMerkleTree(hash, tree)
-
-
-    #     pass
-
-    # def insert(self,hash):
-
+    def insert(self,value):
+        # inserts a new hash to the merkle tree
+        hash = self.hash(value)
+        if len(self.tree) == 0:
+            self.tree = [[hash]]
+        else:
+            self.tree[0].append(hash)
+            self.generateMerkleTree(self.tree[0])
 
     def generateMerkleProof(self, hash, hashes):
         if not hash or not hashes or len(hashes) == 0:
