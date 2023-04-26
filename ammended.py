@@ -12,16 +12,7 @@ class Merkletree:
         hashes = self._get_hashlist(words)
         tree = self.generateMerkleTree(hashes)
         return tree
-
-    def _get_hashlist(self, words:list):
-        # returns a list of all the leaf nodes before building of the tree
-
-        hashes = []                                          # creates the initial list of nodes that will be stored in the merkle tree
-        for val in words:
-            hash = self.hash(val)
-            hashes.append(hash) 
-        return hashes        
-
+   
     def generateMerkleTree(self, hashes:list):
         # hashes: list of hash values
 
@@ -49,11 +40,6 @@ class Merkletree:
         tree.append(combinedHashes)
         print(tree)
         return self.generate(combinedHashes, tree)
-
-    def ensureEven(self,lst):
-        # duplicates if nodes are odd
-        if len(lst) % 2 != 0:
-            lst.append(lst[-1])
 
     def generateMerkleRoot(self,hashes):
         # returns the merkle root 
@@ -100,19 +86,36 @@ class Merkletree:
 
         return merkleProof
     
-    def verify(self,hash, hashes):
+    def verify(self, hash, hashes):
         if self.generateMerkleProof(self, hash, hashes) == None:
             return False
         else:
             return True
 
+        
+    # helper functions
+
+    def _get_hashlist(self, words:list):
+        # returns a list of all the leaf nodes before building of the tree
+
+        hashes = []                                          # creates the initial list of nodes that will be stored in the merkle tree
+        for val in words:
+            hash = self.hash(val)
+            hashes.append(hash) 
+        return hashes 
+    
     def getLeafNodeDirectionInMerkleTree(self, hash, merkleTree):
         hashIndex = merkleTree[0].index(hash)
         if hashIndex % 2 == 0:
             return 'left'
         else:
             return 'right'
-        
+
+    def ensureEven(self,lst):
+        # duplicates if nodes are odd
+        if len(lst) % 2 != 0:
+            lst.append(lst[-1])
+
 words = ["My", "name","is"]   
 tree = Merkletree(words)   
 print(tree.generateMerkleProof('8ed6791bdf3d61a1e6edcbb253979b0a6bef7f3d99dda0fb49cffe96923514b6',['8ed6791bdf3d61a1e6edcbb253979b0a6bef7f3d99dda0fb49cffe96923514b6', '82a3537ff0dbce7eec35d69edc3a189ee6f17d82f353a553f9aa96cb0be3ce89', 'fa51fd49abf67705d6a35d18218c115ff5633aec1f9ebfdc9d5d4956416f57f6']))
