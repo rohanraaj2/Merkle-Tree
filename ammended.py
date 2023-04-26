@@ -14,35 +14,35 @@ class Merkletree:
         return tree
    
     def generateMerkleTree(self, hashes:list):
-        # hashes: list of hash values
-
-        if not hashes or len(hashes) == 0:
+        
+        if not hashes or len(hashes) == 0:          # returns an empty list if there are no hashes provided
             return []
         
-        tree = [hashes]
+        tree = [hashes]                             # creates a tree and adds the list of hashes as the first index
         
-        self.generate(hashes, tree)
+        self.generate(hashes, tree)                 # calls this function so that it can create the remainign levels of hashes
         print("tree", tree)
         return tree
 
     def generate(self,hashes, tree):
-        if len(hashes) == 1:
+        if len(hashes) == 1:                            # if only one hash then return that only
             return hashes
             
-        self.ensureEven(hashes)
+        self.ensureEven(hashes)                         # check if need for duplication
         combinedHashes = []
 
-        for i in range(0, len(hashes), 2):
+        for i in range(0, len(hashes), 2):                          # use every alternate node and concatenate it to create the parent hash
             hashesConcatenated = hashes[i] + hashes[i + 1]
             hash = self.hash(hashesConcatenated)
-            combinedHashes.append(hash)
+            combinedHashes.append(hash)                             
 
-        tree.append(combinedHashes)
+        tree.append(combinedHashes)                                 # append the levels of hashes to the tree
         print(tree)
         return self.generate(combinedHashes, tree)
 
     def generateMerkleRoot(self,hashes):
         # returns the merkle root 
+        # works in a similar way to generate
         if not hashes or len(hashes) == 0:
             return ''
         
@@ -51,7 +51,7 @@ class Merkletree:
 
         for i in range(0, len(hashes), 2):
             hashPairConcatenated = hashes[i] + hashes[i + 1]
-            hash = hashlib.sha256(hashPairConcatenated.encode()).hexdigest()
+            hash = self.hash(hashPairConcatenated)
             combinedHashes.append(hash)
 
         if len(combinedHashes) == 1:
@@ -92,7 +92,6 @@ class Merkletree:
         else:
             return True
 
-        
     # helper functions
 
     def _get_hashlist(self, words:list):
