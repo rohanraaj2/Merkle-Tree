@@ -100,6 +100,12 @@ class Merkletree:
 
         return merkleProof
     
+    def verify(self,hash, hashes):
+        if self.generateMerkleProof(self, hash, hashes) == None:
+            return False
+        else:
+            return True
+
     def getLeafNodeDirectionInMerkleTree(self, hash, merkleTree):
         hashIndex = merkleTree[0].index(hash)
         if hashIndex % 2 == 0:
